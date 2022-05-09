@@ -7,6 +7,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { UpdateDwellingDto } from './dto/update-dwelling.dto';
+import { getUserId } from 'src/utils/jwt.util';
 
 @ApiTags('dwellings')
 @Controller('dwellings')
@@ -21,7 +22,7 @@ export class DwellingController {
     @Body() createDwellingDto: CreateDwellingDto,
     @Request() req,
   ) {
-    return await this.dwellingService.addOne(createDwellingDto, req.user.id);
+    return await this.dwellingService.addOne(createDwellingDto, getUserId(req));
   }
 
   @ApiParam({ name: "id", example: 6 })
@@ -45,7 +46,7 @@ export class DwellingController {
     @Body() updateDwellingDto: UpdateDwellingDto,
     @Request() req,
   ) {
-    return await this.dwellingService.updateOne(id, updateDwellingDto, req.user.id);
+    return await this.dwellingService.updateOne(id, updateDwellingDto, getUserId(req));
   }
 
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
@@ -57,6 +58,6 @@ export class DwellingController {
     @Param('id') id: number,
     @Request() req,
   ) {
-    return { id: await this.dwellingService.deleteOne(id, req.user.id) };
+    return { id: await this.dwellingService.deleteOne(id, getUserId(req)) };
   }
 }
