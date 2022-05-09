@@ -30,12 +30,15 @@ export class User extends BaseEntity {
   email: string;
 
   @ApiProperty()
-  @Column()
+  @Column({
+    select: false,
+  })
   password: string;
 
   @ApiProperty()
   @Column({
     unique: true,
+    select: false,
   })
   activationKey: string;
 

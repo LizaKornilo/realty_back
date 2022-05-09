@@ -16,10 +16,13 @@ export class UserService {
   ) { }
 
   async getOneByEmail(email: string): Promise<User | undefined> {
-    const user = this.userRepository.findOne({
-      where: { email: email },
-      relations: ['role']
-    });
+    const user = this.userRepository
+      .createQueryBuilder("user")
+      .where('user.email = email', { email })
+      .addSelect("user.password")
+      .addSelect("user.activationKey")
+      .leftJoinAndSelect("user.role", "role")
+      .getOne();
     return user;
   }
 
