@@ -11,7 +11,8 @@ async function bootstrap() {
     .setDescription('The realty app API description')
     .setVersion('1.0')
     .addTag('users')
-    .addTag('auth')
+    .addTag('app')
+    .addTag('dwellings')
     .addBearerAuth(
       {
         type: 'http',

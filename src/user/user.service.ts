@@ -61,4 +61,9 @@ export class UserService {
     const { password, activationKey, ...result } = await this.userRepository.save(user);
     return result;
   }
+
+  async getAdmin(): Promise<User> {
+    const adminRole = await this.roleService.getOneByValue(Roles.ADMIN);
+    return await this.userRepository.findOne({ where: { role: adminRole } });
+  }
 }
