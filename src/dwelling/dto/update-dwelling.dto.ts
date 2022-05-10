@@ -15,15 +15,17 @@ export class UpdateDwellingDto {
   price?: number;
 
   @ApiProperty({
-    example: "some other image",
+    type: 'string',
+    format: 'binary',
     required: false,
   })
-  image?: string;
+  image?: any;
 
   @ApiProperty({
-    example: [1, 2],
-    type: [Number],
+    description: 'array converted to a JSON string',
+    example: '[1, 2]',
+    type: String,
     required: false,
   })
-  tagIds?: number[];
+  tagIds?: string;
 }

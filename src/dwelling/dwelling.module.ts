@@ -1,3 +1,4 @@
+import { FilesModule } from './../files/files.module';
 import { UserModule } from './../user/user.module';
 import { TagModule } from './../tag/tag.module';
 import { Dwelling } from './../entity/dwelling.entity';
@@ -11,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forFeature([Dwelling]),
     TagModule,
     UserModule,
+    FilesModule,
   ],
   providers: [DwellingService],
   controllers: [DwellingController]

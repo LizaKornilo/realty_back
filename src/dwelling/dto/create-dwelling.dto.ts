@@ -13,13 +13,15 @@ export class CreateDwellingDto {
   price: number;
 
   @ApiProperty({
-    example: "image",
+    type: 'string',
+    format: 'binary',
   })
-  image: string;
+  image: any;
 
   @ApiProperty({
-    example: [1],
-    type: [Number],
+    description: 'array converted to a JSON string',
+    example: '[1, 2]',
+    type: String,
   })
-  tagIds: number[];
+  tagIds: string;
 }

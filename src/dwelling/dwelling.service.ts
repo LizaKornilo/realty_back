@@ -1,3 +1,4 @@
+import { FilesService } from './../files/files.service';
 import { UpdateDwellingDto } from './dto/update-dwelling.dto';
 import { UserService } from './../user/user.service';
 import { TagService } from './../tag/tag.service';
@@ -13,14 +14,18 @@ export class DwellingService {
     @InjectRepository(Dwelling) private dwellingRepository: Repository<Dwelling>,
     private tagService: TagService,
     private userService: UserService,
+    private filesService: FilesService,
   ) { }
 
-  async addOne(createDwellingDto: CreateDwellingDto, ownerId: number) {
+  async addOne(image: any, createDwellingDto: CreateDwellingDto, ownerId: number) {
     const dwelling = new Dwelling();
     dwelling.name = createDwellingDto.name;
     dwelling.price = createDwellingDto.price;
-    dwelling.image_path = createDwellingDto.image;
-    dwelling.tags = await this.tagService.getTagListByIds(createDwellingDto.tagIds);
+    if (image) {
+      const imageFileName: string = await this.filesService.createFile(image);
+      dwelling.image_path = imageFileName;
+    }
+    dwelling.tags = await this.tagService.getTagListByIds(JSON.parse(createDwellingDto.tagIds));
     dwelling.owner = await this.userService.getOne(ownerId);
     return await this.dwellingRepository.save(dwelling);
   }
@@ -44,7 +49,7 @@ export class DwellingService {
     });
   }
 
-  async updateOne(dwellingId: number, updateData: UpdateDwellingDto, userId: number) {
+  async updateOne(dwellingId: number, image: any, updateData: UpdateDwellingDto, userId: number) {
     await this.checkDwellingIsAlredyExist(dwellingId);
     await this.checkIfTheUserCanChangeDwelling(dwellingId, userId);
     const dwelling = await this.dwellingRepository.findOne({
@@ -52,8 +57,11 @@ export class DwellingService {
     });
     dwelling.name = updateData.name;
     dwelling.price = updateData.price;
-    dwelling.image_path = updateData.image;
-    dwelling.tags = await this.tagService.getTagListByIds(updateData.tagIds);
+    if (image) {
+      const imageFileName: string = await this.filesService.createFile(image);
+      dwelling.image_path = imageFileName;
+    }
+    dwelling.tags = await this.tagService.getTagListByIds(JSON.parse(updateData.tagIds));
     return await this.dwellingRepository.save(dwelling);
   }
 

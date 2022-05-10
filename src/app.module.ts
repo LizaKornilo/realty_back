@@ -8,6 +8,9 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { DwellingModule } from './dwelling/dwelling.module';
 import { TagModule } from './tag/tag.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -21,6 +24,10 @@ import { TagModule } from './tag/tag.module';
     AuthModule,
     DwellingModule,
     TagModule,
+    FilesModule,
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
+    }),
   ],
   controllers: [AppController],
   providers: [],
