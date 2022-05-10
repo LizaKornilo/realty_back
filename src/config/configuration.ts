@@ -1,3 +1,6 @@
+import { Street } from './../entity/street.entity';
+import { City } from './../entity/city.entity';
+import { Country } from './../entity/country.entity';
 import { Tag } from './../entity/tag.entity';
 import { Order } from './../entity/order.entity';
 import { Role } from './../entity/role.entity';
@@ -15,7 +18,7 @@ export class TypeOrmConfig {
       username: configService.get('POSTGRES_USER'),
       password: configService.get('POSTGRES_PASSWORD'),
       database: configService.get('POSTGRES_DB'),
-      entities: [User, Dwelling, Role, Order, Tag],
+      entities: [User, Dwelling, Role, Order, Tag, Country, City, Street],
       synchronize: false,
       logging: false,
     }

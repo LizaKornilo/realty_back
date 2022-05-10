@@ -10,6 +10,9 @@ import { DwellingModule } from './dwelling/dwelling.module';
 import { TagModule } from './tag/tag.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { CountryModule } from './country/country.module';
+import { CityModule } from './city/city.module';
+import { StreetModule } from './street/street.module';
 import * as path from 'path';
 
 @Module({
@@ -28,6 +31,9 @@ import * as path from 'path';
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),
     }),
+     CountryModule,
+    CityModule,
+    StreetModule,
   ],
   controllers: [AppController],
   providers: [],

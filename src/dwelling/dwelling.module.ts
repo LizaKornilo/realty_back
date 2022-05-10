@@ -1,3 +1,6 @@
+import { StreetModule } from './../street/street.module';
+import { CityModule } from './../city/city.module';
+import { CountryModule } from './../country/country.module';
 import { FilesModule } from './../files/files.module';
 import { UserModule } from './../user/user.module';
 import { TagModule } from './../tag/tag.module';
@@ -13,6 +16,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TagModule,
     UserModule,
     FilesModule,
+    CountryModule,
+    CityModule,
+    StreetModule,
   ],
   providers: [DwellingService],
   controllers: [DwellingController]

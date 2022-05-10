@@ -28,4 +28,22 @@ export class UpdateDwellingDto {
     required: false,
   })
   tagIds?: string;
+
+  @ApiProperty({
+    example: "Poland",
+    required: false,
+  })
+  countryValue?: string;
+
+  @ApiProperty({
+    example: "Krakov",
+    required: false,
+  })
+  cityValue?: string;
+
+  @ApiProperty({
+    example: "Pushkin Street",
+    required: false,
+  })
+  streetValue?: string;
 }

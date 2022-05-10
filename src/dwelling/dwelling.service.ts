@@ -1,3 +1,6 @@
+import { StreetService } from './../street/street.service';
+import { CityService } from './../city/city.service';
+import { CountryService } from './../country/country.service';
 import { FilesService } from './../files/files.service';
 import { UpdateDwellingDto } from './dto/update-dwelling.dto';
 import { UserService } from './../user/user.service';
@@ -15,6 +18,9 @@ export class DwellingService {
     private tagService: TagService,
     private userService: UserService,
     private filesService: FilesService,
+    private countryService: CountryService,
+    private cityService: CityService,
+    private streetService: StreetService,
   ) { }
 
   async addOne(image: any, createDwellingDto: CreateDwellingDto, ownerId: number) {
@@ -27,12 +33,15 @@ export class DwellingService {
     }
     dwelling.tags = await this.tagService.getTagListByIds(JSON.parse(createDwellingDto.tagIds));
     dwelling.owner = await this.userService.getOne(ownerId);
+    dwelling.country = await this.countryService.getOneOrCreate(createDwellingDto.countryValue);
+    dwelling.city = await this.cityService.getOneOrCreate(createDwellingDto.cityValue);
+    dwelling.street = await this.streetService.getOneOrCreate(createDwellingDto.streetValue);
     return await this.dwellingRepository.save(dwelling);
   }
 
   async getOne(id: number): Promise<Dwelling> {
     const dwelling = await this.dwellingRepository.findOne(id, {
-      relations: ['owner', 'owner.role', 'tags'],
+      relations: ['owner', 'owner.role', 'tags', , 'country', 'city', 'street'],
     });
     if (!dwelling) {
       throw new HttpException({
@@ -45,7 +54,7 @@ export class DwellingService {
 
   async getAll(): Promise<Dwelling[]> {
     return await this.dwellingRepository.find({
-      relations: ['owner', 'owner.role', 'tags'],
+      relations: ['owner', 'owner.role', 'tags', 'country', 'city', 'street'],
     });
   }
 
@@ -55,13 +64,22 @@ export class DwellingService {
     const dwelling = await this.dwellingRepository.findOne({
       where: { id: dwellingId },
     });
-    dwelling.name = updateData.name;
-    dwelling.price = updateData.price;
+    if (updateData.name)
+      dwelling.name = updateData.name;
+    if (updateData.price)
+      dwelling.price = updateData.price;
     if (image) {
       const imageFileName: string = await this.filesService.createFile(image);
       dwelling.image_path = imageFileName;
     }
-    dwelling.tags = await this.tagService.getTagListByIds(JSON.parse(updateData.tagIds));
+    if (updateData.tagIds)
+      dwelling.tags = await this.tagService.getTagListByIds(JSON.parse(updateData.tagIds));
+    if (updateData.countryValue)
+      dwelling.country = await this.countryService.getOneOrCreate(updateData.countryValue);
+    if (updateData.cityValue)
+      dwelling.city = await this.cityService.getOneOrCreate(updateData.cityValue);
+    if (updateData.streetValue)
+      dwelling.street = await this.streetService.getOneOrCreate(updateData.streetValue);
     return await this.dwellingRepository.save(dwelling);
   }
 
