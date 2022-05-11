@@ -1,3 +1,4 @@
+import { SearchDto } from './dto/search.dto';
 import { StreetService } from './../street/street.service';
 import { CityService } from './../city/city.service';
 import { CountryService } from './../country/country.service';
@@ -118,5 +119,22 @@ export class DwellingService {
         error: `User not admin or owner of dwelling`
       }, HttpStatus.FORBIDDEN)
     }
+  }
+
+  async search(searchDto: SearchDto): Promise<Dwelling[]> {
+    const queryBuilder = this.dwellingRepository.createQueryBuilder("dwelling")
+    if (searchDto.minPrice)
+      queryBuilder.andWhere("dwelling.price > :minPrice", { minPrice: searchDto.minPrice })
+    if (searchDto.maxPrice)
+      queryBuilder.andWhere("dwelling.price < :maxPrice", { maxPrice: searchDto.maxPrice })
+    if (searchDto.countryId)
+      queryBuilder.andWhere("dwelling.country_id = :countryId", { countryId: searchDto.countryId })
+    if (searchDto.cityId)
+      queryBuilder.andWhere("dwelling.city_id = :cityId", { cityId: searchDto.cityId })
+    if (searchDto.streetId)
+      queryBuilder.andWhere("dwelling.street_id = :streetId", { streetId: searchDto.streetId })
+    if (searchDto.updatePeriod)
+      queryBuilder.andWhere(`dwelling.updated_at < now() and dwelling.updated_at > now() - INTERVAL '${searchDto.updatePeriod} days'`)
+    return queryBuilder.getMany();
   }
 }

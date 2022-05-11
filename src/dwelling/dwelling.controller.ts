@@ -1,3 +1,4 @@
+import { SearchDto } from './dto/search.dto';
 import { DwellingService } from './dwelling.service';
 import { CreateDwellingDto } from './dto/create-dwelling.dto';
 import {
@@ -50,6 +51,11 @@ export class DwellingController {
   @Get()
   async readAll() {
     return await this.dwellingService.getAll();
+  }
+
+  @Post('/search')
+  async search(@Body() searchDto: SearchDto) {
+    return await this.dwellingService.search(searchDto);
   }
 
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
