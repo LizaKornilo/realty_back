@@ -14,6 +14,7 @@ import { CountryModule } from './country/country.module';
 import { CityModule } from './city/city.module';
 import { StreetModule } from './street/street.module';
 import { AddressModule } from './address/address.module';
+import { OrderModule } from './order/order.module';
 import * as path from 'path';
 
 @Module({
@@ -36,6 +37,7 @@ import * as path from 'path';
     CityModule,
     StreetModule,
     AddressModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -15,6 +15,7 @@ async function bootstrap() {
     .addTag('dwellings')
     .addTag('tags')
     .addTag('addresses')
+    .addTag('orders')
     .addBearerAuth(
       {
         type: 'http',
