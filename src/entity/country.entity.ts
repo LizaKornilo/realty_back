@@ -5,7 +5,7 @@ import {
   Column,
   OneToMany,
 } from "typeorm";
-import { Dwelling } from "./dwelling.entity";
+import { City } from './city.entity';
 
 @Entity()
 export class Country extends BaseEntity {
@@ -18,8 +18,8 @@ export class Country extends BaseEntity {
   value: string;
 
   @OneToMany(
-    () => Dwelling,
-    (dwelling) => dwelling.country,
+    () => City,
+    (city) => city.country,
   )
-  dwellings: Dwelling[];
+  cities: City[];
 }

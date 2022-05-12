@@ -1,25 +1,35 @@
+import { Country } from './country.entity';
+import { Street } from './street.entity';
 import {
   Entity,
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
-import { Dwelling } from "./dwelling.entity";
 
 @Entity()
 export class City extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    unique: true,
-  })
+  @Column()
   value: string;
 
-  @OneToMany(
-    () => Dwelling,
-    (dwelling) => dwelling.city,
+  @ManyToOne(
+    () => Country,
+    (country) => country.cities,
   )
-  dwellings: Dwelling[];
+  @JoinColumn({
+    name: 'country_id',
+  })
+  country: Country;
+
+  @OneToMany(
+    () => Street,
+    (street) => street.city,
+  )
+  streets: Street[];
 }

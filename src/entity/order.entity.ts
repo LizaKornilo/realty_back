@@ -30,7 +30,7 @@ export class Order extends BaseEntity {
   })
   user: User;
 
-  @OneToOne(() => Dwelling)
+  @ManyToOne(() => Dwelling)
   @JoinColumn({
     name: 'dwelling_id',
   })

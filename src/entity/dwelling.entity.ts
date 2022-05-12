@@ -13,8 +13,6 @@ import {
 import { User } from './user.entity';
 import { Tag } from './tag.entity';
 import { ApiProperty } from "@nestjs/swagger";
-import { Country } from "./country.entity";
-import { City } from "./city.entity";
 import { Street } from './street.entity';
 
 @Entity()
@@ -51,24 +49,6 @@ export class Dwelling extends BaseEntity {
   @ApiProperty()
   @UpdateDateColumn()
   updated_at: Date;
-
-  @ManyToOne(
-    () => Country,
-    (country) => country.dwellings,
-  )
-  @JoinColumn({
-    name: 'country_id',
-  })
-  country: Country;
-
-  @ManyToOne(
-    () => City,
-    (city) => city.dwellings,
-  )
-  @JoinColumn({
-    name: 'city_id',
-  })
-  city: City;
 
   @ManyToOne(
     () => Street,
