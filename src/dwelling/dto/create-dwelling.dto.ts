@@ -26,17 +26,7 @@ export class CreateDwellingDto {
   tagIds: string;
 
   @ApiProperty({
-    example: "Belarus",
+    example: 1,
   })
-  countryValue: string;
-
-  @ApiProperty({
-    example: "Minsk",
-  })
-  cityValue: string;
-
-  @ApiProperty({
-    example: "Pritytskogo Street",
-  })
-  streetValue: string;
+  streetId: number;
 }

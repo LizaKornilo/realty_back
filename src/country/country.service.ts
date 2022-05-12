@@ -9,15 +9,13 @@ export class CountryService {
     @InjectRepository(Country) private countryRepository: Repository<Country>,
   ) { }
 
-  async getOneOrCreate(value: string): Promise<Country> {
-    const country = await this.countryRepository.findOne({
-      where: { value: value },
-    });
-    if (!country) {
-      const newCountry = new Country();
-      newCountry.value = value;
-      return await this.countryRepository.save(newCountry);
-    }
-    return country;
+  async getCountryByValue(value: string): Promise<Country> {
+    return await this.countryRepository.findOne({ where: { value: value } });
+  }
+
+  async createCountry(value: string) {
+    const newCountry = new Country();
+    newCountry.value = value;
+    return await this.countryRepository.save(newCountry);
   }
 }

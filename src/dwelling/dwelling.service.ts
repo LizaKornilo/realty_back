@@ -1,7 +1,5 @@
 import { SearchDto } from './dto/search.dto';
 import { StreetService } from './../street/street.service';
-import { CityService } from './../city/city.service';
-import { CountryService } from './../country/country.service';
 import { FilesService } from './../files/files.service';
 import { UpdateDwellingDto } from './dto/update-dwelling.dto';
 import { UserService } from './../user/user.service';
@@ -19,8 +17,6 @@ export class DwellingService {
     private tagService: TagService,
     private userService: UserService,
     private filesService: FilesService,
-    private countryService: CountryService,
-    private cityService: CityService,
     private streetService: StreetService,
   ) { }
 
@@ -34,15 +30,13 @@ export class DwellingService {
     }
     dwelling.tags = await this.tagService.getTagListByIds(JSON.parse(createDwellingDto.tagIds));
     dwelling.owner = await this.userService.getOne(ownerId);
-    dwelling.country = await this.countryService.getOneOrCreate(createDwellingDto.countryValue);
-    dwelling.city = await this.cityService.getOneOrCreate(createDwellingDto.cityValue);
-    dwelling.street = await this.streetService.getOneOrCreate(createDwellingDto.streetValue);
+    dwelling.street = await this.streetService.getOne(createDwellingDto.streetId);
     return await this.dwellingRepository.save(dwelling);
   }
 
   async getOne(id: number): Promise<Dwelling> {
     const dwelling = await this.dwellingRepository.findOne(id, {
-      relations: ['owner', 'owner.role', 'tags', , 'country', 'city', 'street'],
+      relations: ['owner', 'owner.role', 'tags', 'street', 'street.city', 'street.city.country'],
     });
     if (!dwelling) {
       throw new HttpException({
@@ -55,7 +49,7 @@ export class DwellingService {
 
   async getAll(): Promise<Dwelling[]> {
     return await this.dwellingRepository.find({
-      relations: ['owner', 'owner.role', 'tags', 'country', 'city', 'street'],
+      relations: ['owner', 'owner.role', 'tags', 'street', 'street.city', 'street.city.country'],
     });
   }
 
@@ -75,12 +69,8 @@ export class DwellingService {
     }
     if (updateData.tagIds)
       dwelling.tags = await this.tagService.getTagListByIds(JSON.parse(updateData.tagIds));
-    if (updateData.countryValue)
-      dwelling.country = await this.countryService.getOneOrCreate(updateData.countryValue);
-    if (updateData.cityValue)
-      dwelling.city = await this.cityService.getOneOrCreate(updateData.cityValue);
-    if (updateData.streetValue)
-      dwelling.street = await this.streetService.getOneOrCreate(updateData.streetValue);
+    if (updateData.streetId)
+      dwelling.street = await this.streetService.getOne(updateData.streetId);
     return await this.dwellingRepository.save(dwelling);
   }
 

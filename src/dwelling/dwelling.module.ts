@@ -16,11 +16,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TagModule,
     UserModule,
     FilesModule,
-    CountryModule,
-    CityModule,
     StreetModule,
   ],
   providers: [DwellingService],
-  controllers: [DwellingController]
+  controllers: [DwellingController],
+  exports: [DwellingService],
 })
 export class DwellingModule {}
