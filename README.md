@@ -75,5 +75,8 @@ Nest is [MIT licensed](LICENSE).
 
 ## Migrations
 npm run typeorm migration:generate -- -n <migrationName>
+
 npm run typeorm migration:run
+
 npm run typeorm schema:sync
+
