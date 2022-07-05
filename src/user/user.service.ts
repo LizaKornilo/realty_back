@@ -16,9 +16,9 @@ export class UserService {
   ) { }
 
   async getOneByEmail (email: string): Promise<User | undefined> {
-    const user = this.userRepository
+    const user = await this.userRepository
       .createQueryBuilder('user')
-      .where('user.email = email', { email })
+      .where('user.email = :email', { email })
       .addSelect('user.password')
       .addSelect('user.activationKey')
       .leftJoinAndSelect('user.role', 'role')
