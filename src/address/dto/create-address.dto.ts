@@ -1,18 +1,18 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger'
 
 export class CreateAddressDto {
   @ApiProperty({
-    example: "Belarus"
+    example: 'Belarus'
   })
-  countryValue: string;
+    countryValue: string
 
   @ApiProperty({
-    example: "Gomel"
+    example: 'Gomel'
   })
-  cityValue: string;
+    cityValue: string
 
   @ApiProperty({
-    example: "Pushkin Street"
+    example: 'Pushkin Street'
   })
-  streetValue: string;
+    streetValue: string
 }

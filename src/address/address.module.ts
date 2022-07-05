@@ -1,15 +1,15 @@
-import { StreetModule } from './../street/street.module';
-import { CityModule } from './../city/city.module';
-import { CountryModule } from 'src/country/country.module';
-import { Module } from '@nestjs/common';
-import { AddressService } from './address.service';
-import { AddressController } from './address.controller';
+import { StreetModule } from './../street/street.module'
+import { CityModule } from './../city/city.module'
+import { CountryModule } from 'src/country/country.module'
+import { Module } from '@nestjs/common'
+import { AddressService } from './address.service'
+import { AddressController } from './address.controller'
 
 @Module({
   imports: [
     CountryModule,
     CityModule,
-    StreetModule,
+    StreetModule
   ],
   providers: [AddressService],
   controllers: [AddressController]

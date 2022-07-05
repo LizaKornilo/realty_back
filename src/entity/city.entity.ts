@@ -1,5 +1,5 @@
-import { Country } from './country.entity';
-import { Street } from './street.entity';
+import { Country } from './country.entity'
+import { Street } from './street.entity'
 import {
   Entity,
   BaseEntity,
@@ -7,29 +7,29 @@ import {
   Column,
   OneToMany,
   ManyToOne,
-  JoinColumn,
-} from "typeorm";
+  JoinColumn
+} from 'typeorm'
 
 @Entity()
 export class City extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number
 
   @Column()
-  value: string;
+    value: string
 
   @ManyToOne(
     () => Country,
-    (country) => country.cities,
+    (country) => country.cities
   )
   @JoinColumn({
-    name: 'country_id',
+    name: 'country_id'
   })
-  country: Country;
+    country: Country
 
   @OneToMany(
     () => Street,
-    (street) => street.city,
+    (street) => street.city
   )
-  streets: Street[];
+    streets: Street[]
 }

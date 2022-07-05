@@ -1,37 +1,37 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger'
 
 export class UpdateDwellingDto {
   @ApiProperty({
-    example: "2-room flat for rent",
-    required: false,
+    example: '2-room flat for rent',
+    required: false
   })
-  name?: string;
+    name?: string
 
   @ApiProperty({
     example: 200,
-    type: "numeric",
-    required: false,
+    type: 'numeric',
+    required: false
   })
-  price?: number;
+    price?: number
 
   @ApiProperty({
     type: 'string',
     format: 'binary',
-    required: false,
+    required: false
   })
-  image?: any;
+    image?: any
 
   @ApiProperty({
     description: 'array converted to a JSON string',
     example: '[1, 2]',
     type: String,
-    required: false,
+    required: false
   })
-  tagIds?: string;
+    tagIds?: string
 
   @ApiProperty({
     example: 2,
-    required: false,
+    required: false
   })
-  streetId?: number;
+    streetId?: number
 }

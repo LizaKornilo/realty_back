@@ -3,23 +3,23 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
-} from "typeorm";
-import { Dwelling } from "./dwelling.entity";
+  ManyToMany
+} from 'typeorm'
+import { Dwelling } from './dwelling.entity'
 
 @Entity()
 export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number
 
   @Column({
-    unique: true,
+    unique: true
   })
-  value: string;
+    value: string
 
   @ManyToMany(
     () => Dwelling,
-    (dwellings) => dwellings.tags,
+    (dwellings) => dwellings.tags
   )
-  dwellings: Dwelling[];
+    dwellings: Dwelling[]
 }

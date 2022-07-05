@@ -8,30 +8,30 @@ import {
   ManyToMany,
   ManyToOne,
   JoinTable,
-  JoinColumn,
-} from "typeorm";
-import { User } from './user.entity';
-import { Tag } from './tag.entity';
-import { ApiProperty } from "@nestjs/swagger";
-import { Street } from './street.entity';
+  JoinColumn
+} from 'typeorm'
+import { User } from './user.entity'
+import { Tag } from './tag.entity'
+import { ApiProperty } from '@nestjs/swagger'
+import { Street } from './street.entity'
 
 @Entity()
 export class Dwelling extends BaseEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number
 
   @ApiProperty()
   @Column()
-  name: string;
+    name: string
 
   @ApiProperty({
-    type: "numeric",
+    type: 'numeric'
   })
   @Column({
-    type: "numeric",
+    type: 'numeric'
   })
-  price: number;
+    price: number
 
   @ApiProperty()
   @Column(
@@ -40,58 +40,58 @@ export class Dwelling extends BaseEntity {
     //   default: "",
     // }
   )
-  image_path: string;
+    image_path: string
 
   @ApiProperty()
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date
 
   @ApiProperty()
   @UpdateDateColumn()
-  updated_at: Date;
+    updated_at: Date
 
   @ManyToOne(
     () => Street,
-    (street) => street.dwellings,
+    (street) => street.dwellings
   )
   @JoinColumn({
-    name: 'street_id',
+    name: 'street_id'
   })
-  street: Street;
+    street: Street
 
   @ApiProperty({
     default: true
   })
   @Column({
-    default: true,
+    default: true
   })
-  is_active: boolean;
+    is_active: boolean
 
   @ApiProperty()
   @ManyToMany(
     () => Tag,
-    (tag) => tag.dwellings,
+    (tag) => tag.dwellings
   )
   @JoinTable({
     name: 'dwelling_tag',
     joinColumn: {
       name: 'dwelling_id',
-      referencedColumnName: 'id',
+      referencedColumnName: 'id'
     },
     inverseJoinColumn: {
       name: 'tag_id',
-      referencedColumnName: 'id',
-    },
+      referencedColumnName: 'id'
+    }
   })
-  tags: Tag[];
+    tags: Tag[]
 
   @ApiProperty()
   @ManyToOne(
     () => User,
-    (user) => user.dwellings,
+    (user) => user.dwellings
   )
   @JoinColumn({
-    name: 'owner_id',
+    name: 'owner_id'
   })
-  owner: User;
+    owner: User
 }

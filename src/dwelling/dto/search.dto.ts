@@ -1,46 +1,46 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger'
 
 export class SearchDto {
   @ApiProperty({
     example: 50,
-    type: "numeric",
-    required: false,
+    type: 'numeric',
+    required: false
   })
-  minPrice?: number;
+    minPrice?: number
 
   @ApiProperty({
     example: 50,
-    type: "numeric",
-    required: false,
+    type: 'numeric',
+    required: false
   })
-  maxPrice?: number;
+    maxPrice?: number
 
   @ApiProperty({
     description: 'Number of days',
     example: 7,
-    type: "numeric",
-    required: false,
+    type: 'numeric',
+    required: false
   })
-  updatePeriod?: number;
+    updatePeriod?: number
 
   @ApiProperty({
     example: '1',
     type: Number,
-    required: false,
+    required: false
   })
-  countryId?: number;
+    countryId?: number
 
   @ApiProperty({
     example: '2',
     type: Number,
-    required: false,
+    required: false
   })
-  cityId?: number;
+    cityId?: number
 
   @ApiProperty({
     example: '1',
     type: Number,
-    required: false,
+    required: false
   })
-  streetId?: number;
+    streetId?: number
 }

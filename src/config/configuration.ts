@@ -1,11 +1,11 @@
-import { Street } from './../entity/street.entity';
-import { City } from './../entity/city.entity';
-import { Country } from './../entity/country.entity';
-import { Tag } from './../entity/tag.entity';
-import { Order } from './../entity/order.entity';
-import { Role } from './../entity/role.entity';
-import { Dwelling } from './../entity/dwelling.entity';
-import { User } from './../entity/user.entity';
+import { Street } from './../entity/street.entity'
+import { City } from './../entity/city.entity'
+import { Country } from './../entity/country.entity'
+import { Tag } from './../entity/tag.entity'
+import { Order } from './../entity/order.entity'
+import { Role } from './../entity/role.entity'
+import { Dwelling } from './../entity/dwelling.entity'
+import { User } from './../entity/user.entity'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm'
 
@@ -20,7 +20,7 @@ export class TypeOrmConfig {
       database: configService.get('POSTGRES_DB'),
       entities: [User, Dwelling, Role, Order, Tag, Country, City, Street],
       synchronize: false,
-      logging: false,
+      logging: false
     }
   }
 }

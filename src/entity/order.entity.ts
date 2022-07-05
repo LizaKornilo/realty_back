@@ -4,35 +4,34 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToOne,
-  JoinColumn,
-} from "typeorm";
-import { Dwelling } from './dwelling.entity';
-import { User } from './user.entity';
+  JoinColumn
+} from 'typeorm'
+import { Dwelling } from './dwelling.entity'
+import { User } from './user.entity'
 
 @Entity()
 export class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number
 
   @Column()
-  start_date: Date;
+    start_date: Date
 
   @Column()
-  end_date: Date;
+    end_date: Date
 
   @ManyToOne(
     () => User,
-    (user) => user.orders,
+    (user) => user.orders
   )
   @JoinColumn({
-    name: 'user_id',
+    name: 'user_id'
   })
-  user: User;
+    user: User
 
   @ManyToOne(() => Dwelling)
   @JoinColumn({
-    name: 'dwelling_id',
+    name: 'dwelling_id'
   })
-  dwelling: Dwelling;
+    dwelling: Dwelling
 }

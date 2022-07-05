@@ -1,11 +1,11 @@
-import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
+import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { AppModule } from './app.module'
 
-async function bootstrap() {
-  const port = process.env.PORT || 7000;
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
+async function bootstrap () {
+  const port = process.env.PORT || 7000
+  const app = await NestFactory.create(AppModule)
+  app.enableCors()
 
   const config = new DocumentBuilder()
     .setTitle('Realty app documentation')
@@ -24,14 +24,14 @@ async function bootstrap() {
         bearerFormat: 'JWT',
         name: 'JWT',
         description: 'Enter JWT token',
-        in: 'header',
+        in: 'header'
       },
-      'JWT-auth',
+      'JWT-auth'
     )
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+    .build()
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('api', app, document)
 
-  await app.listen(port, () => console.log(`Server started on ${port} port`));
+  await app.listen(port, () => console.log(`Server started on ${port} port`))
 }
-bootstrap();
+bootstrap()

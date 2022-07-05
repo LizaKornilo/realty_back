@@ -1,18 +1,18 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger'
 
 export class CreateOrderDto {
   @ApiProperty({
-    example: new Date(2022, 6, 25, 13, 30, 0),
+    example: new Date(2022, 6, 25, 13, 30, 0)
   })
-  start_date: Date;
+    start_date: Date
 
   @ApiProperty({
-    example: new Date(2022, 6, 27, 13, 30, 0),
+    example: new Date(2022, 6, 27, 13, 30, 0)
   })
-  end_date: Date;
+    end_date: Date
 
   @ApiProperty({
-    example: 6,
+    example: 6
   })
-  dwellingId: number;
+    dwellingId: number
 }

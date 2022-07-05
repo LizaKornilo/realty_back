@@ -5,31 +5,31 @@ import {
   Column,
   OneToMany,
   ManyToOne,
-  JoinColumn,
-} from "typeorm";
-import { City } from "./city.entity";
-import { Dwelling } from "./dwelling.entity";
+  JoinColumn
+} from 'typeorm'
+import { City } from './city.entity'
+import { Dwelling } from './dwelling.entity'
 
 @Entity()
 export class Street extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number
 
   @Column()
-  value: string;
+    value: string
 
   @ManyToOne(
     () => City,
-    (city) => city.streets,
+    (city) => city.streets
   )
   @JoinColumn({
-    name: 'city_id',
+    name: 'city_id'
   })
-  city: City;
+    city: City
 
   @OneToMany(
     () => Dwelling,
-    (dwelling) => dwelling.street,
+    (dwelling) => dwelling.street
   )
-  dwellings: Dwelling[];
+    dwellings: Dwelling[]
 }

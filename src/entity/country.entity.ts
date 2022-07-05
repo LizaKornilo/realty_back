@@ -3,23 +3,23 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
-} from "typeorm";
-import { City } from './city.entity';
+  OneToMany
+} from 'typeorm'
+import { City } from './city.entity'
 
 @Entity()
 export class Country extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number
 
   @Column({
-    unique: true,
+    unique: true
   })
-  value: string;
+    value: string
 
   @OneToMany(
     () => City,
-    (city) => city.country,
+    (city) => city.country
   )
-  cities: City[];
+    cities: City[]
 }

@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger'
 import {
   Entity,
   BaseEntity,
@@ -6,66 +6,66 @@ import {
   Column,
   ManyToOne,
   OneToMany,
-  JoinColumn,
-} from "typeorm";
-import { Dwelling } from "./dwelling.entity";
-import { Order } from "./order.entity";
-import { Role } from './role.entity';
+  JoinColumn
+} from 'typeorm'
+import { Dwelling } from './dwelling.entity'
+import { Order } from './order.entity'
+import { Role } from './role.entity'
 
 @Entity()
 export class User extends BaseEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number
 
   @ApiProperty()
   @Column()
-  username: string;
+    username: string
 
   @ApiProperty()
   @ApiProperty({ uniqueItems: true })
   @Column({
+    unique: true
+  })
+    email: string
+
+  @ApiProperty()
+  @Column({
+    select: false
+  })
+    password: string
+
+  @ApiProperty()
+  @Column({
     unique: true,
+    select: false
   })
-  email: string;
+    activationKey: string
 
   @ApiProperty()
   @Column({
-    select: false,
+    default: false
   })
-  password: string;
-
-  @ApiProperty()
-  @Column({
-    unique: true,
-    select: false,
-  })
-  activationKey: string;
-
-  @ApiProperty()
-  @Column({
-    default: false,
-  })
-  is_activated: boolean;
+    is_activated: boolean
 
   @OneToMany(
     () => Order,
-    (order) => order.user,
+    (order) => order.user
   )
-  orders: Order[];
+    orders: Order[]
 
   @OneToMany(
     () => Dwelling,
-    (dwelling) => dwelling.owner,
+    (dwelling) => dwelling.owner
   )
-  dwellings: Dwelling[];
+    dwellings: Dwelling[]
 
   @ManyToOne(
     () => Role,
-    (role) => role.users,
+    (role) => role.users
   )
   @JoinColumn({
-    name: 'role_id',
+    name: 'role_id'
   })
-  role: Role;
+    role: Role
 }
