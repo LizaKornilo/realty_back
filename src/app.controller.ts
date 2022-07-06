@@ -6,7 +6,7 @@ import {
   Post,
   UseGuards,
   Body,
-  Get
+  Get, Res
 } from '@nestjs/common'
 import { LocalAuthGuard } from './auth/guards/local-auth.guard'
 import { AuthService } from './auth/auth.service'
@@ -14,16 +14,29 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { RolesDecorator } from './auth/decorators/roles.decorator'
 import { Roles } from './role/roles-values.enum'
+import { Response } from 'express'
+import { ConfigService } from '@nestjs/config'
 
 @Controller()
 @ApiTags('app')
 export class AppController {
-  constructor (private authService: AuthService) { }
+  constructor (private authService: AuthService, private configService: ConfigService) { }
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login (@Request() req, @Body() body: AuthDto) {
-    return this.authService.login(req.user)
+  async login (
+      @Request() req,
+      @Body() body: AuthDto,
+      @Res() response: Response
+  ) {
+    const tokens = await this.authService.login(req.user)
+    response.cookie('refresh_token', tokens.refresh_token)
+    response.send(tokens.access_token)
+  }
+
+  @Post('generate-new-access-token')
+  async generateNewAccessToken (@Request() request) {
+    return await this.authService.generateNewAccessToken(request.cookies.refresh_token)
   }
 
   @Get('get-hello-for-everyone')

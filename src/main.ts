@@ -1,11 +1,18 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
+import * as cookieParser from 'cookie-parser'
+const cors = require('cors')
 
 async function bootstrap () {
   const port = process.env.PORT || 7000
   const app = await NestFactory.create(AppModule)
-  app.enableCors()
+  app.use(cookieParser())
+  app.use(cors({
+    origin: `${process.env.FRONT_URL}`,
+    methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD', 'DELETE', 'PATCH'],
+    credentials: true
+  }))
 
   const config = new DocumentBuilder()
     .setTitle('Realty app documentation')
