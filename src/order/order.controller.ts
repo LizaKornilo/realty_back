@@ -1,12 +1,12 @@
 import { CreateOrderDto } from './dto/create-order.dto'
 import { OrderService } from './order.service'
 import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common'
-import { Roles } from 'src/role/roles-values.enum'
-import { RolesDecorator } from 'src/auth/decorators/roles.decorator'
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
-import { RolesGuard } from 'src/auth/guards/roles.guard'
+import { Roles } from './../role/roles-values.enum'
+import { RolesDecorator } from './../auth/decorators/roles.decorator'
+import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard'
+import { RolesGuard } from './../auth/guards/roles.guard'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { getUserId } from 'src/utils/jwt.util'
+import { getUserId } from './../utils/jwt.util'
 
 @ApiTags('orders')
 @Controller('orders')

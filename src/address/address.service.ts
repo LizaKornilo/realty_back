@@ -2,10 +2,10 @@ import { Street } from 'src/entity/street.entity'
 import { Country } from './../entity/country.entity'
 import { CreateAddressDto } from './dto/create-address.dto'
 import { StreetService } from './../street/street.service'
-import { CityService } from 'src/city/city.service'
-import { CountryService } from 'src/country/country.service'
+import { CityService } from './../city/city.service'
+import { CountryService } from './../country/country.service'
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { City } from 'src/entity/city.entity'
+import { City } from './../entity/city.entity'
 
 @Injectable()
 export class AddressService {

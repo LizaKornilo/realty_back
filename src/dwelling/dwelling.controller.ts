@@ -14,13 +14,13 @@ import {
   UploadedFile,
   UseInterceptors
 } from '@nestjs/common'
-import { RolesDecorator } from 'src/auth/decorators/roles.decorator'
-import { Roles } from 'src/role/roles-values.enum'
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
-import { RolesGuard } from 'src/auth/guards/roles.guard'
+import { RolesDecorator } from './../auth/decorators/roles.decorator'
+import { Roles } from './../role/roles-values.enum'
+import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard'
+import { RolesGuard } from './../auth/guards/roles.guard'
 import { ApiBearerAuth, ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger'
 import { UpdateDwellingDto } from './dto/update-dwelling.dto'
-import { getUserId } from 'src/utils/jwt.util'
+import { getUserId } from './../utils/jwt.util'
 import { FileInterceptor } from '@nestjs/platform-express'
 
 @ApiTags('dwellings')

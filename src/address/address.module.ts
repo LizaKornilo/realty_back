@@ -1,6 +1,6 @@
 import { StreetModule } from './../street/street.module'
 import { CityModule } from './../city/city.module'
-import { CountryModule } from 'src/country/country.module'
+import { CountryModule } from './../country/country.module'
 import { Module } from '@nestjs/common'
 import { AddressService } from './address.service'
 import { AddressController } from './address.controller'
