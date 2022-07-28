@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  dev-db:
+    image: postgres:14.4
+    restart: always
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=user-for-dev
+      - POSTGRES_PASSWORD=kF45aN0a
+    ports:
+      - '5435:5432'
+  test-db:
+    image: postgres:14.4
+    restart: always
+    environment:
+      - POSTGRES_DB=testdb
+      - POSTGRES_USER=user-for-test
+      - POSTGRES_PASSWORD=passtest
+    ports:
+      - '5432:5432'

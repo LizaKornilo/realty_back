@@ -20,7 +20,7 @@ import * as path from 'path'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.development.env'],
+      envFilePath: ['.development.env', '.test.env'],
       isGlobal: true
     }),
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
