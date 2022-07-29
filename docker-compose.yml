@@ -10,6 +10,8 @@ services:
       - POSTGRES_PASSWORD=kF45aN0a
     ports:
       - '5435:5432'
+    volumes:
+      - devdb-data:/var/lib/postgresql/data
   test-db:
     image: postgres:14.4
     restart: always
@@ -19,3 +21,5 @@ services:
       - POSTGRES_PASSWORD=passtest
     ports:
       - '5432:5432'
+volumes:
+  devdb-data:
