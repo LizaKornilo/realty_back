@@ -4,21 +4,19 @@ import { AppModule } from '../../src/app.module'
 import * as request from 'supertest'
 import { getConnection } from 'typeorm'
 import { RegisterReqDto } from '../../src/user/dto/registerReq.dto'
+import { admin } from '../../src/migration/consts'
 
-export async function clearDB () {
+export async function clearTestDB () {
   if (process.env.NODE_ENV !== 'test') return
   const entities = getConnection().entityMetadatas
   for (const entity of entities) {
-    if (entity.tableName === 'role') {
-      return
-    } else if (entity.tableName === 'user') {
-      const repository = await getConnection().getRepository(entity.name)
-      await repository.query(`DELETE FROM "${entity.tableName}" WHERE id <> 1`)
-    } else {
+    if (entity.tableName !== 'role') {
       const repository = await getConnection().getRepository(entity.name)
       await repository.query(`TRUNCATE "${entity.tableName}" RESTART IDENTITY CASCADE`)
     }
   }
+  await getConnection().query(`INSERT INTO "user" (username, email, password, "activationKey", is_activated, role_id)
+                               VALUES ('${admin.username}', '${admin.email}', '${admin.password}', '${admin.activationKey}', '${admin.is_activated}', '${admin.role_id}')`)
 }
 
 describe('UserController Int', () => {
@@ -75,6 +73,6 @@ describe('UserController Int', () => {
   })
 
   afterAll(async () => {
-    await clearDB()
+    await clearTestDB()
   })
 })

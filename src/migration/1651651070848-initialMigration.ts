@@ -1,19 +1,9 @@
 import { Roles } from './../role/roles-values.enum'
 import { MigrationInterface, QueryRunner } from 'typeorm'
-import { v4 as uuidv4 } from 'uuid'
-const bcrypt = require('bcryptjs')
+import { admin } from './consts'
 
 export class initialMigration1651651070848 implements MigrationInterface {
   name = 'initialMigration1651651070848'
-
-  admin = {
-    username: 'administrator',
-    email: 'liza.kor142001@gmail.com',
-    password: bcrypt.hashSync('iamadmin', 5),
-    activationKey: uuidv4(),
-    is_activated: true,
-    role_id: 3
-  }
 
   public async up (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query('CREATE TABLE "role" ("id" SERIAL NOT NULL, "value" character varying NOT NULL, CONSTRAINT "UQ_98082dbb08817c9801e32dd0155" UNIQUE ("value"), CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id"))')
@@ -34,7 +24,7 @@ export class initialMigration1651651070848 implements MigrationInterface {
     await queryRunner.query(`INSERT INTO role (value) VALUES ('${Roles.OWNER}')`)
     await queryRunner.query(`INSERT INTO role (value) VALUES ('${Roles.ADMIN}')`)
     await queryRunner.query(`INSERT INTO "user" (username, email, password, "activationKey", is_activated, role_id)
-        VALUES ('${this.admin.username}', '${this.admin.email}', '${this.admin.password}', '${this.admin.activationKey}', '${this.admin.is_activated}', '${this.admin.role_id}')`)
+        VALUES ('${admin.username}', '${admin.email}', '${admin.password}', '${admin.activationKey}', '${admin.is_activated}', '${admin.role_id}')`)
   }
 
   public async down (queryRunner: QueryRunner): Promise<void> {
